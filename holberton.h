@@ -5,10 +5,12 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
+typedef int (*Printer)(void *);
+
 typedef struct {
 	char name;
-	int (*f)(void *);
-} spec;
+	Printer f;
+} Spec;
 
 int _printf(const char *format, ...);
 
