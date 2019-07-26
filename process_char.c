@@ -3,24 +3,36 @@
 /**
  * process_item - process one character or specifier in the format string
  *
- * @format: pointer to current position in format string
+ * @format: pointer to  pointer to current char
  * @args: varargs
- * Return: number of characters processed
+ * Return: number of characters printed
  */
-int process_item(char *format, va_list args)
+int process_item(char **format, va_list args)
 {
 	Printer f;
+	char c;
+
+	/* eat 1 char */
+	c = **format;
+	*format += 1;
 
 	/* Normal character */
-	if (*format != '%')
+	if (c != '%')
 	{
-		write(1, *format, 1);
+		write(1, c, 1);
 		return 1;
 	}
 	/* % */
-	f = get_spec(*format);
+
+	/* eat format specifier */
+	c = **format;
+	*format += 1;
+
+	/* call print function */
+	f = get_spec(c);
 	if (f)
 		return f(args);
-	
+
+	/* invalid */
 	return 0;
 }

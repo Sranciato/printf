@@ -14,4 +14,6 @@ typedef struct {
 
 int _printf(const char *format, ...);
 
+int process_char(char **format, va_list args);
+
 #endif
