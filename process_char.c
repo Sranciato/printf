@@ -15,11 +15,12 @@ int process_item(char *format, va_list args)
 	if (*format != '%')
 	{
 		write(1, *format, 1);
+		return 1;
 	}
-	else
-	{
-		f = get_spec(*format);
-		if (f)
-			f(args);
-	}
+	/* % */
+	f = get_spec(*format);
+	if (f)
+		return f(args);
+	
+	return 0;
 }
