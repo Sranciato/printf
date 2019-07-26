@@ -4,21 +4,21 @@
  * @s: specifier character.
  * Return: function pointer.
  */
-int (*get_spec(char s))
+Printer get_spec(char s)
 {
 	Spec array[] = {
-		{'c', NULL}
-		{'s', NULL}
-		{'%', NULL}
-		{NULL, NULL}
+		{'c', print_c},
+		{'s', NULL},
+		{'%', NULL},
+		{'\0', NULL}
 	};
 
 	int i = 0;
 
-	while (array[i].name != NULL)
+	while (array[i].name != '\0')
 	{
 		if (s == array[i].name)
-			return (Printer);
+			return (array[i].f);
 		i++;
 	}
 	return (NULL);
