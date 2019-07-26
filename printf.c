@@ -9,7 +9,7 @@
  */
 int _printf(const char *format, ...)
 {
-	char *ptr;
+	const char *ptr;
 	int totalprinted = 0;
 	va_list args;
 

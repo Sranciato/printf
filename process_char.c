@@ -7,7 +7,7 @@
  * @args: varargs
  * Return: number of characters printed
  */
-int process_item(char **format, va_list args)
+int process_item(const char **format, va_list args)
 {
 	Printer f;
 	char c;
@@ -19,10 +19,9 @@ int process_item(char **format, va_list args)
 	/* Normal character */
 	if (c != '%')
 	{
-		write(1, c, 1);
+		write(1, &c, 1);
 		return 1;
 	}
-	/* % */
 
 	/* eat format specifier */
 	c = **format;

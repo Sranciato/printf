@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include <unistd.h>
 
 typedef int (*Printer)(va_list);
 
@@ -14,6 +15,8 @@ typedef struct {
 
 int _printf(const char *format, ...);
 
-int process_char(char **format, va_list args);
+int process_item(const char **format, va_list args);
+
+Printer get_spec(char c);
 
 #endif
