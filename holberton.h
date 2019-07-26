@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-typedef int (*Printer)(void *);
+typedef int (*Printer)(va_list);
 
 typedef struct {
 	char name;
