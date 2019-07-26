@@ -1,6 +1,6 @@
 #ifndef FUNCTION_H
 #define FUNCTION_H
 
-void print_c(char s);
+int print_c(va_list args);
 
 #endif

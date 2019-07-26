@@ -1,4 +1,5 @@
 #include "holberton.h"
+#include "functions.h"
 /**
  * get_spec - get specifer.
  * @s: specifier character.
