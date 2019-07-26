@@ -6,6 +6,8 @@
 #include <stdarg.h>
 #include <unistd.h>
 
+#define LENGTH(a) (sizeof(a) / sizeof((a)[0]))
+
 typedef int (*Printer)(va_list);
 
 typedef struct {
