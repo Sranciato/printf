@@ -2,5 +2,6 @@
 #define FUNCTION_H
 
 int print_c(va_list args);
+int print_s(va_list args);
 
 #endif

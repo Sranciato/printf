@@ -2,5 +2,5 @@
 
 void main(void)
 {
-	_printf("test%c\n",'!');
+	_printf("test%s\n","sqsmksmk");
 }
