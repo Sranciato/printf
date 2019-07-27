@@ -2,7 +2,8 @@
 
 void main(void)
 {
-	int d = 25;
-
-	_printf("test%dhi\n", d);
+	_printf("test%c\n",'!');
+	_printf("test%%hi\n");
+	_printf("string: %s\n", "word");
+	_printf("numbers: %d %d\n", 398, -24);
 }
