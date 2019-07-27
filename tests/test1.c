@@ -2,5 +2,5 @@
 
 void main(void)
 {
-	_printf("test%s\n","sqsmksmk");
+	_printf("test%%\n");
 }
