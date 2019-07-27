@@ -11,6 +11,7 @@ Printer get_spec(char s)
 		{'c', print_c},
 		{'s', print_s},
 		{'%', print_percent},
+		{'d', print_d},
 		{'\0', NULL}
 	};
 
