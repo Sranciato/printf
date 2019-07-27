@@ -10,7 +10,7 @@ Printer get_spec(char s)
 	Spec array[] = {
 		{'c', print_c},
 		{'s', print_s},
-		{'%', NULL},
+		{'%', print_percent},
 		{'\0', NULL}
 	};
 
