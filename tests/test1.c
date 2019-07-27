@@ -2,5 +2,7 @@
 
 void main(void)
 {
-	_printf("test%%hi\n");
+	int d = 25;
+
+	_printf("test%dhi\n", d);
 }
