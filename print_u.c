@@ -4,7 +4,7 @@
  * @args: Incoming integer.
  * Return: Number of bytes.
  */
-void print_u(va_list args)
+int print_u(va_list args)
 {
 	unsigned int y;
 	unsigned int n = va_arg(args, unsigned int);
@@ -16,7 +16,7 @@ void print_u(va_list args)
 		{
 			if (n / y != 0)
 			{
-				printed += outc(((-n / y) % 10) + '0');
+				printed += outc(((n / y) % 10) + '0');
 			}
 		}
 	}
@@ -24,4 +24,5 @@ void print_u(va_list args)
 	{
 		printed += outc('0');
 	}
+	return (printed);
 }
