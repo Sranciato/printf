@@ -1,7 +1,7 @@
 #include "holberton.h"
 
 /**
- * scan - read 1 char from format string and m-move the pointer
+ * scan - read 1 char from format string a-and move the pointer
  *
  * @format: format string
  */
@@ -11,6 +11,27 @@ char scan(const char **format)
 
 	*format += 1;
 	return (c);
+}
+
+int scan_int(const char **format, char *cc, va_list args)
+{
+	int ret = 0;
+	char c = *cc;
+
+	if (c == '*')
+	{
+		*cc = scan(format);
+		return (va_arg(args, int));
+	}
+	if (c < '0' || c > '9')
+		return (-1);
+
+	while (c >= '0' && c <= '9')
+	{
+		ret = ret * 10 + (c - '0');
+		*cc = c = scan(format);
+	}
+	return (ret);
 }
 
 /**
@@ -23,26 +44,49 @@ char scan(const char **format)
 int process_item(const char **format, va_list args)
 {
 	Printer f;
-	char c;
+	char c, o_pad = ' ';
+	int o_plus = 0, o_space = 0, o_hash = 0, o_minus = 0;
+	int o_length = -1, o_precision = -1;
 
 	/* eat 1 char */
 	c = scan(format);
-
 	/* Normal character */
 	if (c != '%')
 	{
 		write(1, &c, 1);
-		return 1;
+		return (1);
 	}
-
-	/* eat format specifier */
-	c = scan(format);
-
+	/* check next characters */
+	while (1)
+	{
+		c = scan(format);
+		if (c == '+')
+			o_plus = 1;
+		else if (c == ' ')
+			o_space = 1;
+		else if (c == '#')
+			o_hash = 1;
+		else if (c == '0')
+			o_pad = '0';
+		else if (c == '-')
+			o_minus = 1;
+		else
+			break;
+	}
+	o_length = scan_int(format, &c, args);
+	if (c == '.')
+		o_precision = scan_int(format, &c, args);
+/*
+	printf("\nflags: +:%d _:%d #:%d -:%d\n", o_plus, o_space, o_hash, o_minus);
+	printf("\npadding: '%c'\n", o_pad);
+	printf("length: %d\n", o_length);
+	printf("precision: %d\n", o_precision);
+	printf("char: %c\n", c);
+*/
 	/* call print function */
 	f = get_spec(c);
 	if (f)
-		return f(args);
-
+		return (f(args /*, o_plus, o_space, o_hash, o_minus, o_pad, o_length, o_precision*/ ));
 	/* invalid */
-	return 0;
+	return (0);
 }
