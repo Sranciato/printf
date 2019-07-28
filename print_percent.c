@@ -4,7 +4,7 @@
  * @args: unused
  * Return: Number of bytes
  */
-int print_percent(va_list args)
+void print_percent(va_list args)
 {
-	return outc('%');
+	outc('%');
 }

@@ -4,7 +4,7 @@
  * @args: Incoming character.
  * Return: Number of bytes
  */
-int print_c(va_list args)
+void print_c(va_list args)
 {
-	return outc(va_arg(args, int));
+	outc(va_arg(args, int));
 }

@@ -4,7 +4,7 @@
  * @args: Incoming number.
  * Return: Number of bytes
  */
-int print_d(va_list args)
+void print_d(va_list args)
 {
 	int y, n = va_arg(args, int);
 	int printed = 0;
@@ -38,5 +38,4 @@ int print_d(va_list args)
 			}
 		}
 	}
-	return (printed);
 }

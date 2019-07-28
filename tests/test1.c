@@ -14,4 +14,6 @@ void main(void)
 	_printf("%d\n", x);
 	x=_printf("binary: %b\n", 46);
 	_printf("%d\n", x);
+	x=_printf("unsigned: %u\n", -1);
+	_printf("%u\n", x);
 }

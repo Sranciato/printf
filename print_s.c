@@ -4,12 +4,11 @@
  * @args: Incoming string.
  * Return: Number of bytes
  */
-int print_s(va_list args)
+void print_s(va_list args)
 {
 	char *s = va_arg(args, char *);
 	int i;
 
 	for (i = 0; s[i] != '\0'; i++)
 		outc(s[i]);
-	return (i);
 }

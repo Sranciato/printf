@@ -4,7 +4,7 @@
  * @args: Incoming character.
  * Return: Number of bytes
  */
-int print_b(va_list args)
+void print_b(va_list args)
 {
 	int a[10], i, n = va_arg(args, int);
 
@@ -17,5 +17,4 @@ int print_b(va_list args)
 	{
 		outc(a[i] + '0');
 	}
-	return (sizeof(int));
 }
