@@ -1,6 +1,19 @@
 #include "holberton.h"
 
 /**
+ * scan - read 1 char from format string and m-move the pointer
+ *
+ * @format: format string
+ */
+char scan(const char **format)
+{
+	char c = **format;
+
+	*format += 1;
+	return (c);
+}
+
+/**
  * process_item - process one character or specifier in the format string
  *
  * @format: pointer to  pointer to current char
@@ -13,8 +26,7 @@ int process_item(const char **format, va_list args)
 	char c;
 
 	/* eat 1 char */
-	c = **format;
-	*format += 1;
+	c = scan(format);
 
 	/* Normal character */
 	if (c != '%')
@@ -24,8 +36,7 @@ int process_item(const char **format, va_list args)
 	}
 
 	/* eat format specifier */
-	c = **format;
-	*format += 1;
+	c = scan(format);
 
 	/* call print function */
 	f = get_spec(c);
