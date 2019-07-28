@@ -1,9 +1,10 @@
 #include "holberton.h"
 
 /**
- * scan - read 1 char from format string a-and move the pointer
+ * scan - read 1 char from format string, a-and move the pointer
  *
- * @format: format string
+ * @format: format
+ * Return: read char
  */
 char scan(const char **format)
 {
@@ -13,6 +14,14 @@ char scan(const char **format)
 	return (c);
 }
 
+/**
+ * scan_int - read an integer from format, or * (read from args)
+ *
+ * @format: format
+ * @cc: char in main parser
+ * @args: args
+ * Return: read integer or -1
+ */
 int scan_int(const char **format, char *cc, va_list args)
 {
 	int ret = 0;
@@ -86,7 +95,7 @@ int process_item(const char **format, va_list args)
 	/* call print function */
 	f = get_spec(c);
 	if (f)
-		return (f(args /*, o_plus, o_space, o_hash, o_minus, o_pad, o_length, o_precision*/ ));
+		return (f(args /*, o_plus, o_space, o_hash, o_minus, o_pad, o_length, o_precision*/));
 	/* invalid */
 	return (0);
 }
