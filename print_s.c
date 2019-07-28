@@ -10,6 +10,6 @@ int print_s(va_list args)
 	int i;
 
 	for (i = 0; s[i] != '\0'; i++)
-		write(1, &s[i], 1);
+		outc(s[i]);
 	return (i);
 }

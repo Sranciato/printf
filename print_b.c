@@ -15,7 +15,7 @@ int print_b(va_list args)
 	}
 	for (i = (i - 1); i >= 0; i--)
 	{
-		_putchar(a[i] + '0');
+		outc(a[i] + '0');
 	}
 	return (sizeof(int));
 }

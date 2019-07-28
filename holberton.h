@@ -15,6 +15,9 @@ typedef struct {
 	Printer f;
 } Spec;
 
+int out(char *data, int length);
+int outc(char c);
+
 int _printf(const char *format, ...);
 
 int process_item(const char **format, va_list args);
