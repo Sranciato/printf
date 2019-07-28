@@ -10,16 +10,19 @@
 int _printf(const char *format, ...)
 {
 	const char *ptr;
-	int totalprinted = 0;
 	va_list args;
 
 	va_start(args, format);
 
+	/* reset the printed char counter */
+	out(NULL, -1);
+
 	ptr = format;
 	while(ptr && *ptr)
-		totalprinted += process_item(&ptr, args);
+		process_item(&ptr, args);
 
 	va_end(args);
 
-	return totalprinted;
+	/* get the number of chars printed */
+	return out(NULL, -2);
 }

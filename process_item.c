@@ -50,7 +50,7 @@ int scan_int(const char **format, char *cc, va_list args)
  * @args: varargs
  * Return: number of characters printed
  */
-int process_item(const char **format, va_list args)
+void process_item(const char **format, va_list args)
 {
 	Printer f;
 	char c, o_pad = ' ';
@@ -59,13 +59,13 @@ int process_item(const char **format, va_list args)
 
 	/* eat 1 char */
 	c = scan(format);
-	/* Normal character */
+	/* char is not %: print it and return */
 	if (c != '%')
 	{
-		write(1, &c, 1);
-		return (1);
+		outc(c);
+		return;
 	}
-	/* check next characters */
+	/* read options */
 	while (1)
 	{
 		c = scan(format);
@@ -95,7 +95,5 @@ int process_item(const char **format, va_list args)
 	/* call print function */
 	f = get_spec(c);
 	if (f)
-		return (f(args /*, o_plus, o_space, o_hash, o_minus, o_pad, o_length, o_precision*/));
-	/* invalid */
-	return (0);
+		f(args/*, o_plus, o_space, o_hash, o_minus, o_pad, o_length, o_precision*/);
 }

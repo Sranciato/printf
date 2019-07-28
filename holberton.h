@@ -20,7 +20,7 @@ int outc(char c);
 
 int _printf(const char *format, ...);
 
-int process_item(const char **format, va_list args);
+void process_item(const char **format, va_list args);
 
 Printer get_spec(char c);
 
