@@ -10,10 +10,18 @@ void main(void)
 	_printf("%d\n", x);
 	x=_printf("string: %s\n", "word");
 	_printf("%d\n", x);
-	x=_printf("numbers: %d %d\n", 398, -24);
+	x=_printf("numbers: %d %u\n", 398, 1<<31);
 	_printf("%d\n", x);
 	x=_printf("binary: %b\n", 46);
 	_printf("%d\n", x);
 	x=_printf("unsigned: %u\n", -1);
 	_printf("%u\n", x);
+
+	x=_printf("invalid: %-11Z\n");
+	_printf("%d\n", x);
+
+	printf("null string: %s\n", NULL);
+	x=_printf("null string: %s\n", NULL);
+	_printf("%d\n", x);
+
 }

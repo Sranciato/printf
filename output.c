@@ -13,7 +13,7 @@
  * @length: number of bytes
  * Return: number of bytes printed
  */
-int out(char *data, int length)
+int out(const char *data, int length)
 {
 	static int totalprinted;
 	int printed;

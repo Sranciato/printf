@@ -56,6 +56,7 @@ void process_item(const char **format, va_list args)
 	char c, o_pad = ' ';
 	int o_plus = 0, o_space = 0, o_hash = 0, o_minus = 0;
 	int o_length = -1, o_precision = -1;
+	const char *start = *format;
 
 	/* eat 1 char */
 	c = scan(format);
@@ -91,6 +92,8 @@ void process_item(const char **format, va_list args)
 	f = get_spec(c);
 	if (f)
 		f(args/*, o_plus, o_space, o_hash, o_minus, o_pad, o_length, o_precision*/);
+	else
+		out(start, *format - start);
 }
 
 /*
