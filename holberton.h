@@ -55,13 +55,13 @@ void process_item(const char **format, va_list args);
 
 Printer get_spec(char c);
 
-#define GET_SIZED(n, options, args, type) do {		\
-		if (options.size == 2)												\
-			n = va_arg(args, type);							\
-		else if (options.size == 3)										\
-			n = va_arg(args, long type);							\
-		else																					\
-			n = va_arg(args, type);							\
+#define GET_SIZED(n, options, args, type) do {			\
+		if (options.size == 2)													\
+			n = (short type) va_arg(args, type);					\
+		else if (options.size == 3)											\
+			n = va_arg(args, long type);									\
+		else																						\
+			n = va_arg(args, type);												\
 	} while (0);
 
 #define MAX_DIGIT 1000000000000000000
