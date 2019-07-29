@@ -111,6 +111,7 @@ void process_item(const char **format, va_list args)
 		f(args/*, options*/);
 	else
 		out(start, *format - start);
+	(void)options;
 }
 
 /*
