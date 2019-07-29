@@ -6,5 +6,6 @@
  */
 void print_percent(va_list args)
 {
+	(void)args;
 	outc('%');
 }
