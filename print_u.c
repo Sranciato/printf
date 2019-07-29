@@ -1,7 +1,8 @@
 #include "holberton.h"
 /**
  * print_u - Print unsigned integer.
- * @args: Incoming integer.
+ * @args: arg list
+ * @options: format options
  */
 void print_u(va_list args, Options options)
 {

@@ -1,7 +1,8 @@
 #include "holberton.h"
 /**
  * print_d - Print digit.
- * @args: Incoming number.
+ * @args: arg list
+ * @options: format options
  */
 void print_d(va_list args, Options options)
 {

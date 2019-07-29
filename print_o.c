@@ -1,8 +1,8 @@
 #include "holberton.h"
 /**
  * print_o - Print character.
- * @args: Incoming character.
- * Return: Number of bytes
+ * @args: arg list
+ * @options: format options
  */
 void print_o(va_list args, Options options)
 {

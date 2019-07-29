@@ -1,8 +1,8 @@
 #include "holberton.h"
 /**
  * print_x - Print character.
- * @args: Incoming character.
- * Return: Number of bytes
+ * @args: arg list
+ * @options: format options
  */
 void print_x(va_list args, Options options)
 {
@@ -30,8 +30,8 @@ void print_x(va_list args, Options options)
 }
 /**
  * print_X - print uppercase hex.
- * @args: number passed in.
- * Return: number of bytes.
+ * @args: arg list
+ * @options: format options
  */
 void print_X(va_list args, Options options)
 {
