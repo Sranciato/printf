@@ -12,7 +12,7 @@ void main(void)
 	_printf("%d\n", x);
 	x=_printf("numbers: %d %u\n", 398, 1<<31);
 	_printf("%d\n", x);
-	x=_printf("binary: %b\n", 46);
+	x=_printf("binary: %b, %b, %b, %b,\n", 46, 1<<31, -1, 0);
 	_printf("%d\n", x);
 	x=_printf("unsigned: %u\n", -1);
 	_printf("%u\n", x);
@@ -24,5 +24,9 @@ void main(void)
 	_printf("%d\n", x);
 
 	x=_printf("unclosed specifier: %+10", 1);
+	_printf("%d\n", x);
+
+	x=_printf(NULL);
+
 	_printf("%d\n", x);
 }
