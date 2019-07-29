@@ -85,15 +85,18 @@ void process_item(const char **format, va_list args)
 	o_length = scan_int(format, &c, args);
 	if (c == '.')
 		o_precision = scan_int(format, &c, args);
-/*
-	printf("\nflags: +:%d _:%d #:%d -:%d\n", o_plus, o_space, o_hash, o_minus);
-	printf("\npadding: '%c'\n", o_pad);
-	printf("length: %d\n", o_length);
-	printf("precision: %d\n", o_precision);
-	printf("char: %c\n", c);
-*/
+	(void)o_plus, (void)o_space, (void)o_hash, (void)o_minus, (void)o_pad;
+	(void)o_length, (void)o_precision;
 	/* call print function */
 	f = get_spec(c);
 	if (f)
 		f(args/*, o_plus, o_space, o_hash, o_minus, o_pad, o_length, o_precision*/);
 }
+
+/*
+ * printf("\nflags: +:%d _:%d #:%d -:%d\n", o_plus, o_space, o_hash, o_minus);
+ * printf("\npadding: '%c'\n", o_pad);
+ * printf("length: %d\n", o_length);
+ * printf("precision: %d\n", o_precision);
+ * printf("char: %c\n", c);
+ */
