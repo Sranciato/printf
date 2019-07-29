@@ -8,20 +8,6 @@
 
 #define LENGTH(a) (sizeof(a) / sizeof((a)[0]))
 
-typedef void (*Printer)(va_list);
-/**
- * struct Spec - function pointer and specifier.
- * @name: name of specifier.
- * @f: function pointer for get spec.
- *
- * Description: Specifier types.
- */
-typedef struct Spec
-{
-	char name;
-	Printer f;
-} Spec;
-
 /**
  * struct Options - format specifier options
  * @minus: -, left align
@@ -45,8 +31,23 @@ typedef struct Options
 	int size;
 } Options;
 
+typedef void (*Printer)(va_list, Options);
+
+/**
+ * struct Spec - function pointer and specifier.
+ * @name: name of specifier.
+ * @f: function pointer for get spec.
+ *
+ * Description: Specifier types.
+ */
+typedef struct Spec
+{
+	char name;
+	Printer f;
+} Spec;
+
 int out(const char *data, int length);
-int outc(char c);
+void outc(char c);
 
 int _printf(const char *format, ...);
 
