@@ -4,11 +4,12 @@
  * @args: Incoming character.
  * Return: Number of bytes
  */
-void print_x(va_list args)
+void print_x(va_list args, Options options)
 {
 	int a[32], i;
 	unsigned int n = va_arg(args, unsigned int);
 
+	(void)options;
 	if (n == 0)
 	{
 		outc('0');
@@ -32,11 +33,12 @@ void print_x(va_list args)
  * @args: number passed in.
  * Return: number of bytes.
  */
-void print_X(va_list args)
+void print_X(va_list args, Options options)
 {
 	int a[32], i;
 	unsigned int n = va_arg(args, unsigned int);
 
+	(void)options;
 	if (n == 0)
 	{
 		outc('0');

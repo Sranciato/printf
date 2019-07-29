@@ -108,10 +108,9 @@ void process_item(const char **format, va_list args)
 		(*format)--;
 	f = get_spec(c);
 	if (f) /* call print function */
-		f(args/*, options*/);
+		f(args, options);
 	else
 		out(start, *format - start);
-	(void)options;
 }
 
 /*

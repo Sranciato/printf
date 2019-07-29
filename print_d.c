@@ -3,10 +3,11 @@
  * print_d - Print digit.
  * @args: Incoming number.
  */
-void print_d(va_list args)
+void print_d(va_list args, Options options)
 {
 	int y, n = va_arg(args, int);
 
+	(void)options;
 	if (n > 0)
 	{
 		n *= -1;
