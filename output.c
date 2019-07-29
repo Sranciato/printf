@@ -9,7 +9,7 @@
  *  to get the count, call: out(NULL, -2)
  * (This is a sort of hack because global variables aren't allowed)
  *
- * @buffer: pointer to data to print
+ * @data: pointer to data to print
  * @length: number of bytes
  * Return: number of bytes printed
  */
@@ -44,5 +44,5 @@ int out(char *data, int length)
  */
 int outc(char c)
 {
-	return out(&c, 1);
+	return (out(&c, 1));
 }

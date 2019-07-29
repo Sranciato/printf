@@ -18,11 +18,11 @@ int _printf(const char *format, ...)
 	out(NULL, -1);
 
 	ptr = format;
-	while(ptr && *ptr)
+	while (ptr && *ptr)
 		process_item(&ptr, args);
 
 	va_end(args);
 
 	/* get the number of chars printed */
-	return out(NULL, -2);
+	return (out(NULL, -2));
 }
