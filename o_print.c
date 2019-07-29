@@ -6,8 +6,10 @@
  */
 void print_o(va_list args, Options options)
 {
-	int a[32], i;
-	unsigned int n = va_arg(args, unsigned int);
+	int a[64], i;
+	unsigned long int n;
+
+	GET_SIZED(n, options, args, unsigned int);
 
 	(void)options;
 	if (n == 0)

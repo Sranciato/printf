@@ -6,13 +6,14 @@
  */
 void print_d(va_list args, Options options)
 {
-	int y, n = va_arg(args, int);
+	long int y, n;
 
-	(void)options;
+	GET_SIZED(n, options, args, int);
+
 	if (n > 0)
 	{
 		n *= -1;
-		for (y = 1000000000; y > 0; y /= 10)
+		for (y = MAX_DIGIT; y > 0; y /= 10)
 		{
 			if (n / y != 0)
 			{
@@ -27,7 +28,7 @@ void print_d(va_list args, Options options)
 	else if (n < 0)
 	{
 		outc('-');
-		for (y = 1000000000; y > 0; y /= 10)
+		for (y = MAX_DIGIT; y > 0; y /= 10)
 		{
 			if (n / y != 0)
 			{

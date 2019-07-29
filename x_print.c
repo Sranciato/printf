@@ -6,10 +6,11 @@
  */
 void print_x(va_list args, Options options)
 {
-	int a[32], i;
-	unsigned int n = va_arg(args, unsigned int);
+	int a[64], i;
+	long unsigned int n;
 
-	(void)options;
+	GET_SIZED(n, options, args, unsigned int);
+
 	if (n == 0)
 	{
 		outc('0');
@@ -35,10 +36,11 @@ void print_x(va_list args, Options options)
  */
 void print_X(va_list args, Options options)
 {
-	int a[32], i;
-	unsigned int n = va_arg(args, unsigned int);
+	int a[64], i;
+	long unsigned int n;
 
-	(void)options;
+	GET_SIZED(n, options, args, unsigned int);
+
 	if (n == 0)
 	{
 		outc('0');

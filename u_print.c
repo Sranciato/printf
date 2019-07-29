@@ -6,13 +6,13 @@
  */
 void print_u(va_list args, Options options)
 {
-	unsigned int y;
-	unsigned int n = va_arg(args, unsigned int);
+	unsigned long int y, n;
 
-	(void)options;
+	GET_SIZED(n, options, args, unsigned int);
+
 	if (n > 0)
 	{
-		for (y = 1000000000; y > 0; y /= 10)
+		for (y = MAX_DIGIT; y > 0; y /= 10)
 		{
 			if (n / y != 0)
 			{
