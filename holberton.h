@@ -22,6 +22,29 @@ typedef struct Spec
 	Printer f;
 } Spec;
 
+/**
+ * struct Options - format specifier options
+ * @minus: -, left align
+ * @plus: +, display + before non-negative numbers
+ * @space:  , display space before non-negatives
+ * @hash: o: display 0/0x/0X before nonzero numbers or force decimal point
+ * @pad: character to fill empty space with
+ * @length: length
+ * @precision: precision, or max string length
+ * @size: size modifier
+ */
+typedef struct Options
+{
+	int minus;
+	int plus;
+	int space;
+	int hash;
+	char pad;
+	int length;
+	int precision;
+	int size;
+} Options;
+
 int out(const char *data, int length);
 int outc(char c);
 
