@@ -15,6 +15,27 @@ char scan(const char **format)
 }
 
 /**
+ * scan_size - read length specifier
+ * @format: format string
+ * @cc: c
+ * Return: 0-9, (none, hh, h, l, ll, j, z, t, L)
+ */
+int scan_size(const char **format, char *cc)
+{
+	if (*cc == 'h')
+	{
+		*cc = scan(format);
+		return (2);
+	}
+	else if (*cc == 'l')
+	{
+		*cc = scan(format);
+		return (3);
+	}
+	return (0);
+}
+
+/**
  * scan_int - read an integer from format, or * (read from args)
  *
  * @format: format
@@ -53,9 +74,8 @@ int scan_int(const char **format, char *cc, va_list args)
 void process_item(const char **format, va_list args)
 {
 	Printer f;
-	char c, o_pad = ' ';
-	int o_plus = 0, o_space = 0, o_hash = 0, o_minus = 0;
-	int o_length = -1, o_precision = -1;
+	char c;
+	Options options = {0, 0, 0, 0, ' ', -1, -1, 0};
 	const char *start = *format;
 
 	c = scan(format); /* eat 1 char */
@@ -67,29 +87,28 @@ void process_item(const char **format, va_list args)
 	while (1) /* read options */
 	{
 		c = scan(format);
-		if (c == '+')
-			o_plus = 1;
+		if (c == '-')
+			options.minus = 1;
+		else if (c == '+')
+			options.plus = 1;
 		else if (c == ' ')
-			o_space = 1;
+			options.space = 1;
 		else if (c == '#')
-			o_hash = 1;
+			options.hash = 1;
 		else if (c == '0')
-			o_pad = '0';
-		else if (c == '-')
-			o_minus = 1;
+			options.pad = '0';
 		else
 			break;
 	}
-	o_length = scan_int(format, &c, args);
+	options.length = scan_int(format, &c, args);
 	if (c == '.')
-		o_precision = scan_int(format, &c, args);
-	(void)o_plus, (void)o_space, (void)o_hash, (void)o_minus, (void)o_pad;
-	(void)o_length, (void)o_precision;
+		options.precision = scan_int(format, &c, args);
+	options.size = scan_size(format, &c);
 	if (c == '\0')
 		(*format)--;
 	f = get_spec(c);
 	if (f) /* call print function */
-		f(args/*, o_plus, o_space, o_hash, o_minus, o_pad, o_length, o_precision*/);
+		f(args/*, options*/);
 	else
 		out(start, *format - start);
 }

@@ -29,4 +29,6 @@ void main(void)
 	x=_printf(NULL);
 
 	_printf("%d\n", x);
+
+	_printf("Unsigned octal:[%o], %o, %o, %o\n", 1<<31, -1, 0, 45);
 }
