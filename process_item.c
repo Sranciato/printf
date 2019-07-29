@@ -87,6 +87,8 @@ void process_item(const char **format, va_list args)
 		o_precision = scan_int(format, &c, args);
 	(void)o_plus, (void)o_space, (void)o_hash, (void)o_minus, (void)o_pad;
 	(void)o_length, (void)o_precision;
+	if (c == '\0')
+		(*format)--;
 	f = get_spec(c);
 	if (f) /* call print function */
 		f(args/*, o_plus, o_space, o_hash, o_minus, o_pad, o_length, o_precision*/);

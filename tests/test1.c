@@ -20,8 +20,9 @@ void main(void)
 	x=_printf("invalid: %-11Z\n");
 	_printf("%d\n", x);
 
-	printf("null string: %s\n", NULL);
 	x=_printf("null string: %s\n", NULL);
 	_printf("%d\n", x);
 
+	x=_printf("unclosed specifier: %+10", 1);
+	_printf("%d\n", x);
 }
