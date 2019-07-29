@@ -11,28 +11,42 @@
  *
  * @data: pointer to data to print
  * @length: number of bytes
- * Return: number of bytes printed
+ * Return: number of chars printed
  */
 int out(const char *data, int length)
 {
 	static int totalprinted;
-	int printed;
+	static char buffer[1024];
+	static unsigned int bufpos;
+	int i;
 
 	if (data == NULL)
 	{
 		if (length == -1)
+		{
 			totalprinted = 0;
-		if (length == -2)
+			bufpos = 0;
+		}
+		else if (length == -2)
+		{
+			write(1, buffer, bufpos);
 			return (totalprinted);
+		}
 		return (0);
 	}
 
-	printed = write(1, data, length);
-	totalprinted += printed;
+	for (i = 0; i < length; i++)
+	{
+		if (bufpos >= LENGTH(buffer))
+		{
+			write(1, buffer, LENGTH(buffer));
+			bufpos = 0;
+		}
+		buffer[bufpos++] = data[i];
+	}
+	totalprinted += length;
 
-	return (printed);
-
-	/* eventually this will write to a buffer */
+	return (length);
 }
 
 /**
@@ -40,9 +54,8 @@ int out(const char *data, int length)
  *  ex: outc('x');
  *
  * @c: char
- * Return: number of chars printed (1)
  */
-int outc(char c)
+void outc(char c)
 {
-	return (out(&c, 1));
+	out(&c, 1);
 }

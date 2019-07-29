@@ -47,7 +47,7 @@ typedef struct Spec
 } Spec;
 
 int out(const char *data, int length);
-int outc(char c);
+void outc(char c);
 
 int _printf(const char *format, ...);
 
