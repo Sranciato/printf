@@ -58,10 +58,8 @@ void process_item(const char **format, va_list args)
 	int o_length = -1, o_precision = -1;
 	const char *start = *format;
 
-	/* eat 1 char */
-	c = scan(format);
-	/* char is not %: print it and return */
-	if (c != '%')
+	c = scan(format); /* eat 1 char */
+	if (c != '%') /* char is not %: print it and return */
 	{
 		outc(c);
 		return;
