@@ -56,6 +56,7 @@ void process_item(const char **format, va_list args)
 	char c, o_pad = ' ';
 	int o_plus = 0, o_space = 0, o_hash = 0, o_minus = 0;
 	int o_length = -1, o_precision = -1;
+	const char *start = *format;
 
 	/* eat 1 char */
 	c = scan(format);
@@ -65,8 +66,7 @@ void process_item(const char **format, va_list args)
 		outc(c);
 		return;
 	}
-	/* read options */
-	while (1)
+	while (1) /* read options */
 	{
 		c = scan(format);
 		if (c == '+')
@@ -87,10 +87,11 @@ void process_item(const char **format, va_list args)
 		o_precision = scan_int(format, &c, args);
 	(void)o_plus, (void)o_space, (void)o_hash, (void)o_minus, (void)o_pad;
 	(void)o_length, (void)o_precision;
-	/* call print function */
 	f = get_spec(c);
-	if (f)
+	if (f) /* call print function */
 		f(args/*, o_plus, o_space, o_hash, o_minus, o_pad, o_length, o_precision*/);
+	else
+		out(start, *format - start);
 }
 
 /*

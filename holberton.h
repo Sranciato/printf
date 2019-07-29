@@ -22,7 +22,7 @@ typedef struct Spec
 	Printer f;
 } Spec;
 
-int out(char *data, int length);
+int out(const char *data, int length);
 int outc(char c);
 
 int _printf(const char *format, ...);
