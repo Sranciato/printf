@@ -24,18 +24,16 @@ void print_S(va_list args, Options ops)
 					outc('0');
 					continue;
 				}
-				for (j = 0; n != 0; j++)
+				for (j = 0; j < 2; j++)
 				{
 					a[j] = n & 15;
 					n >>= 4;
 				}
 				for (j = (j - 1); j >= 0; j--)
 				{
-					if (j == 0)
-						out("0", 1);
-					if (a[j] <= 9 && j < 2)
+					if (a[j] <= 9)
 						outc(a[j] + '0');
-					else if (j < 2)
+					else
 						outc((a[j] - 10) + 'A');
 				}
 			}
