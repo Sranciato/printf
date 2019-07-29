@@ -19,6 +19,7 @@ Printer get_spec(char s)
 		{'x', print_x},
 		{'X', print_X},
 		{'S', print_S},
+		{'p', print_p},
 		{'\0', NULL}
 	};
 

@@ -11,6 +11,7 @@ void print_o(va_list args, Options options);
 void print_x(va_list args, Options options);
 void print_X(va_list args, Options options);
 void print_S(va_list args, Options options);
+void print_p(va_list args, Options options);
 int _putchar(char c);
 
 #endif
