@@ -9,7 +9,7 @@
  */
 void print_hex(va_list args, Options options, char a)
 {
-	int digits[64], i, length, prefixlen = 0;
+	int digits[64], i, length, prefixlen = 0, totallen;
 	char *prefix = NULL;
 	unsigned long int n;
 
@@ -25,22 +25,19 @@ void print_hex(va_list args, Options options, char a)
 	}
 
 	/* read digits */
-	for (length = 0; n != 0; length++)
+	for (length = 0; n != 0 || length == 0; length++)
 	{
 		digits[length] = n & 15;
 		n >>= 4;
 	}
-	for (; length < options.precision; length++)
-		digits[length] = 0;
-	/* special case if n was 0 */
-	if (length == 0)
-	{
-		digits[0] = 0;
-		length = 1;
-	}
 
-	pad_before(options, length, prefix, prefixlen);
+	totallen = length;
+	if (options.precision > length)
+		totallen = options.precision;
+
+	pad_before(options, totallen, prefix, prefixlen);
 	/* print digits */
+	outcr('0', totallen - length);
 	for (i = length - 1; i >= 0; i--)
 	{
 		if (digits[i] <= 9)
@@ -48,7 +45,7 @@ void print_hex(va_list args, Options options, char a)
 		else
 			outc(digits[i] - 10 + a);
 	}
-	pad_after(options, length + prefixlen);
+	pad_after(options, totallen + prefixlen);
 }
 
 /**

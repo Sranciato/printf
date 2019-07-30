@@ -7,7 +7,7 @@
 void print_d(va_list args, Options options)
 {
 	char *prefix = NULL;
-	int digits[64], length, i, negative, prefixlen = 0;
+	int digits[64], length, i, negative, prefixlen = 0, totallen;
 	long int n;
 
 	GET_SIZED(n, options, args, int);
@@ -21,9 +21,6 @@ void print_d(va_list args, Options options)
 			digits[length] = n % 10;
 		n = n / 10;
 	}
-	/* increase length if less than precision */
-	for (; length < options.precision; length++)
-		digits[length] = 0;
 
 	if (negative)
 		prefix = "-";
@@ -35,10 +32,16 @@ void print_d(va_list args, Options options)
 	if (prefix)
 		prefixlen = 1;
 
-	pad_before(options, length, prefix, prefixlen);
+	totallen = length;
+	if (totallen < options.precision)
+		totallen = options.precision;
+
+	pad_before(options, totallen, prefix, prefixlen);
+
+	outcr('0', totallen - length);
 	/* print digits */
 	for (i = length - 1; i >= 0; i--)
 		outc(digits[i] + '0');
 
-	pad_after(options, length + prefixlen);
+	pad_after(options, totallen + prefixlen);
 }
