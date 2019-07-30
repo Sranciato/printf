@@ -11,8 +11,9 @@ int main(int argc, char **argv)
 	_printf("test: [%*.*d]\n", a,b,c);
 	_printf("test: [%*.*d]\n", a,b,c);
 }
-	_printf("d: [%.70d] [%+5.9hd] [%+ld]\n", -3, 123, -3141592653589793238L);
-	 printf("d: [%.70d] [%+5.9hd] [%+ld]\n", -3, 123, -3141592653589793238L);
+	_printf("d: [%.0u]\n",0);
+	printf("d: [%.0u]\n",0);
+	//printf("d: [%.");
 
 	_printf("u: [%-10.3u] [%05hu] [%lu]\n", 3, 123, 3141592653589793238L);
 	printf("u: [%-10.3u] [%05hu] [%lu]\n", 3, 123, 3141592653589793238L);

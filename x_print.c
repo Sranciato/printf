@@ -25,7 +25,7 @@ void print_hex(va_list args, Options options, char a)
 	}
 
 	/* read digits */
-	for (length = 0; n != 0 || length == 0; length++)
+	for (length = 0; n != 0 || (length == 0 && options.precision != 0); length++)
 	{
 		digits[length] = n & 15;
 		n >>= 4;
