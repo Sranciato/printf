@@ -7,7 +7,7 @@
 void print_u(va_list args, Options options)
 {
 	int digits[64];
-	long int n;
+	unsigned long int n;
 	int length, i, totallen;
 
 	GET_SIZED(n, options, args, unsigned int);

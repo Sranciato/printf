@@ -1,27 +1,34 @@
 #include "holberton.h"
+
 /**
- * print_b - Print character.
- * @args: arg list
- * @options: format options
+ * print_o - print binary
+ *
+ * @args: args
+ * @options: options
  */
 void print_b(va_list args, Options options)
 {
-	int a[32], i;
-	unsigned int n = va_arg(args, unsigned int);
+	int digits[64], i, length, totallen;
+	unsigned long int n;
 
-	(void)options;
-	if (n == 0)
+	GET_SIZED(n, options, args, unsigned int);
+
+	/* read digits */
+	for (length = 0; n != 0 || (length == 0 && options.precision != -1); length++)
 	{
-		outc('0');
-		return;
-	}
-	for (i = 0; n != 0; i++)
-	{
-		a[i] = n & 1;
+		digits[length] = n & 1;
 		n >>= 1;
 	}
-	for (i = (i - 1); i >= 0; i--)
-	{
-		outc(a[i] + '0');
-	}
+
+	totallen = length;
+	if (options.precision > length)
+		totallen = options.precision;
+
+	pad_before(options, totallen, NULL, 0);
+	/* print digits */
+	outcr('0', totallen - length);
+	for (i = length - 1; i >= 0; i--)
+		outc(digits[i] + '0');
+
+	pad_after(options, totallen + 0);
 }
