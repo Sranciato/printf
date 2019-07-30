@@ -1,7 +1,7 @@
 #include "holberton.h"
 
 /**
- * scan - read 1 char from format string, a-and move the pointer
+ * scan - read 1 char from format string, and m-move the pointer
  *
  * @format: format
  * Return: read char
@@ -15,10 +15,10 @@ char scan(const char **format)
 }
 
 /**
- * scan_size - read length specifier
+ * scan_size - read length specifier (h or l)
  * @format: format string
  * @cc: c
- * Return: 0-9, (none, hh, h, l, ll, j, z, t, L)
+ * Return: 0 (none), 2 (h), or 3 (l)
  */
 int scan_size(const char **format, char *cc)
 {
@@ -48,43 +48,42 @@ int scan_int(const char **format, char *cc, va_list args)
 	int ret = 0;
 	char c = *cc;
 
+	/* if * instead of number, return value from arguments */
 	if (c == '*')
 	{
 		*cc = scan(format);
 		return (va_arg(args, int));
 	}
+
+	/* if there is no number return -1 */
 	if (c < '0' || c > '9')
 		return (-1);
 
+	/* read all digits */
 	while (c >= '0' && c <= '9')
 	{
 		ret = ret * 10 + (c - '0');
 		*cc = c = scan(format);
 	}
+
 	return (ret);
 }
 
 /**
- * process_item - process one character or specifier in the format string
- *
- * @format: pointer to  pointer to current char
- * @args: varargs
- * Return: number of characters printed
+ * scan_options - read format specifier options
+ * @format: pointer to the position pointer
+ * @cc: pointer to current char
+ * @args: printf's args
+ * Return: options struct
  */
-void process_item(const char **format, va_list args)
+Options scan_options(const char **format, char *cc, va_list args)
 {
-	Printer f;
-	char c;
+	/* default options */
 	Options options = {0, 0, 0, 0, ' ', -1, -1, 0};
-	const char *start = *format;
+	char c = *cc;
 
-	c = scan(format); /* eat 1 char */
-	if (c != '%') /* char is not %: print it and return */
-	{
-		outc(c);
-		return;
-	}
-	while (1) /* read options */
+	/* read flags */
+	while (1)
 	{
 		c = scan(format);
 		if (c == '-')
@@ -100,23 +99,56 @@ void process_item(const char **format, va_list args)
 		else
 			break;
 	}
+	/* read length */
 	options.length = scan_int(format, &c, args);
+	/* if . read precision */
 	if (c == '.')
+	{
+		c = scan(format);
 		options.precision = scan_int(format, &c, args);
+		if (options.precision == -1) /* if there is no number */
+			options.precision = 0; /* treat it like .0 */
+	}
+	/* read h or l flag */
 	options.size = scan_size(format, &c);
-	if (c == '\0')
-		(*format)--;
-	f = get_spec(c);
-	if (f) /* call print function */
-		f(args, options);
-	else
-		out(start, *format - start);
+
+	*cc = c;
+
+	return (options);
 }
 
-/*
- * printf("\nflags: +:%d _:%d #:%d -:%d\n", o_plus, o_space, o_hash, o_minus);
- * printf("\npadding: '%c'\n", o_pad);
- * printf("length: %d\n", o_length);
- * printf("precision: %d\n", o_precision);
- * printf("char: %c\n", c);
+/**
+ * process_item - process one character or specifier in the format string
+ *
+ * @format: pointer to  pointer to current char
+ * @args: varargs
  */
+void process_item(const char **format, va_list args)
+{
+	Printer f;
+	char c;
+	Options options;
+	const char *start = *format;
+
+	/* eat 1 char */
+	c = scan(format);
+	/* char is not %: print it and exit */
+	if (c != '%')
+	{
+		outc(c);
+		return;
+	}
+
+	/* read options after % */
+	options = scan_options(format, &c, args);
+	/* if string ended, oops, go back */
+	if (c == '\0')
+		(*format)--;
+
+	/* call print function if it exists */
+	f = get_spec(c);
+	if (f)
+		f(args, options);
+	else /* otherwise output the invalid specifier directly */
+		out(start, *format - start);
+}

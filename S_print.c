@@ -5,25 +5,38 @@
  * @ops: Options.
  * Return: Number of bytes
  */
-void print_S(va_list args, Options ops)
+void print_S(va_list args, Options options)
 {
 	int a[32];
 	char *s = va_arg(args, char *);
-	int i, n, j;
+	int i, n, j, length = 0;
 
-	(void)ops;
+	/* get length */
+	if (s)
+		while (s[length])
+		{
+			if (s[length] < 32 || s[length] >= 127) /* "\xNN" - 4 chars */
+				length += 4;
+			else
+				length += 1;
+		}
+	else
+	{
+		length = 6; /* "(null)" */
+	}
+
+	if (options.precision >= 0 && length > options.precision)
+		length = options.precision;
+
+	pad_before(options, length, NULL, 0);
+	/* print string */
 	if (s)
 	{
-		for (i = 0; s[i] != '\0'; i++)
+		for (i = 0; i < length; i++)
 			if (s[i] < 32 || s[i] >= 127)
 			{
 				out("\\x", 2);
 				n = s[i];
-				if (n == 0)
-				{
-					outc('0');
-					continue;
-				}
 				for (j = 0; j < 2; j++)
 				{
 					a[j] = n & 15;
@@ -41,5 +54,9 @@ void print_S(va_list args, Options ops)
 				outc(s[i]);
 	}
 	else
+	{
 		out("(null)", 6);
+	}
+
+	pad_after(options, length);
 }
