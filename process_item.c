@@ -102,7 +102,10 @@ void process_item(const char **format, va_list args)
 	}
 	options.length = scan_int(format, &c, args);
 	if (c == '.')
+	{
+		c = scan(format);
 		options.precision = scan_int(format, &c, args);
+	}
 	options.size = scan_size(format, &c);
 	if (c == '\0')
 		(*format)--;
@@ -112,11 +115,3 @@ void process_item(const char **format, va_list args)
 	else
 		out(start, *format - start);
 }
-
-/*
- * printf("\nflags: +:%d _:%d #:%d -:%d\n", o_plus, o_space, o_hash, o_minus);
- * printf("\npadding: '%c'\n", o_pad);
- * printf("length: %d\n", o_length);
- * printf("precision: %d\n", o_precision);
- * printf("char: %c\n", c);
- */
