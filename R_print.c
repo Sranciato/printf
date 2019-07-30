@@ -2,7 +2,7 @@
 /**
  * print_R - rot 13.
  * @args: incoming strings.
- * @ops: incoming options.
+ * @options: incoming options.
  * Return: rot 13 string.
  */
 void print_R(va_list args, Options options)
@@ -14,7 +14,7 @@ void print_R(va_list args, Options options)
 
 	if (p)
 		while (p[length] != '\0')
-			length ++;
+			length++;
 
 	if (options.precision >= 0 && length > options.precision)
 		length = options.precision;

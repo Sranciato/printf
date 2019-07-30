@@ -2,7 +2,7 @@
 /**
  * print_r - Print reverse string.
  * @args: Incoming argument.
- * @ops: options for specifiers.
+ * @options: options for specifiers.
  * Return: Number of bytes.
  */
 void print_r(va_list args, Options options)
