@@ -1,6 +1,6 @@
 #include "../holberton.h"
 
-void main(void)
+int main(void)
 {
 	int x;
 
@@ -31,4 +31,18 @@ void main(void)
 	_printf("%d\n", x);
 
 	_printf("Unsigned octal:[%o], %o, %o, %o\n", 1<<31, -1, 0, 45);
+
+	_printf("Unsigned hexadecimal:[%x, %x, %x, %x]\n", 1<<31, -1, 0, 45);
+	printf("Unsigned hexadecimal:[%x, %x, %x, %x]\n", 1<<31, -1, 0, 45);
+
+	_printf("Unsigned hexadecimal:[%X, %X, %X, %X]\n", 1<<31, -1, 0, 45);
+
+	_printf("%S\n", "Holberton\nSchool");
+
+	_printf("%R\n", "hello holberton");
+
+	x = _printf("%r\n", "hello holberton");
+	_printf("length: %+d length: %#d\n", x);
+
+	return (0);
 }
