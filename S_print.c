@@ -13,20 +13,20 @@ void print_S(va_list args, Options options)
 
 	/* get length */
 	if (s)
-		while (s[length])
+		for (i = 0; s[i]; i++)
 			if (s[length] < 32 || s[length] >= 127) /* "\xNN" - 4 chars */
 				length += 4;
 			else
 				length += 1;
 	else
 		length = 6; /* "(null)" */
-
+	/* note: precision flag doesn't really work... but it's not required */
 	if (options.precision >= 0 && length > options.precision)
 		length = options.precision;
 	pad_before(options, length, NULL, 0);
 	/* print string */
 	if (s)
-		for (i = 0; i < length; i++)
+		for (i = 0; s[i]; i++)
 			if (s[i] < 32 || s[i] >= 127)
 			{
 				out("\\x", 2);
