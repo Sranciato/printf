@@ -1,34 +1,18 @@
 #include "../holberton.h"
 
-void main(void)
+int main(void)
 {
-	int x;
+	_printf("d: [%-10.3d] [%+5hd] [%+ld]\n", -3, 123, -3141592653589793238L);
+	 printf("d: [%-10.3d] [%+5hd] [%+ld]\n", -3, 123, -3141592653589793238L);
 
-	x=_printf("test%c\n",'!');
-	_printf("%d\n", x);
-	x=_printf("test%%hi\n");
-	_printf("%d\n", x);
-	x=_printf("string: %s\n", "word");
-	_printf("%d\n", x);
-	x=_printf("numbers: %d %u\n", 398, 1<<31);
-	_printf("%d\n", x);
-	x=_printf("binary: %b, %b, %b, %b,\n", 46, 1<<31, -1, 0);
-	_printf("%d\n", x);
-	x=_printf("unsigned: %u\n", -1);
-	_printf("%u\n", x);
+	_printf("u: [%-10.3u] [%05hu] [%lu]\n", 3, 123, 3141592653589793238L);
+	printf("u: [%-10.3u] [%05hu] [%lu]\n", 3, 123, 3141592653589793238L);
 
-	x=_printf("invalid: %-11Z\n");
-	_printf("%d\n", x);
+	_printf("o: [%-10.3o] [%#05ho] [%lo]\n", 3, 123, 3141592653589793238L);
+	printf("o: [%-10.3o] [%#05ho] [%lo]\n", 3, 123, 3141592653589793238L);
 
-	x=_printf("null string: %s\n", NULL);
-	_printf("%d\n", x);
+	_printf("x: [%-10.3x] [%#5hX] [%lX]\n", 3, 123, 3141592653589793238L);
+	printf("x: [%-10.3x] [%#5hX] [%lX]\n", 3, 123, 3141592653589793238L);
 
-	x=_printf("unclosed specifier: %+10", 1);
-	_printf("%d\n", x);
-
-	x=_printf(NULL);
-
-	_printf("%d\n", x);
-
-	_printf("Unsigned octal:[%o], %o, %o, %o\n", 1<<31, -1, 0, 45);
+	return (0);
 }

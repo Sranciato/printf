@@ -48,6 +48,9 @@ typedef struct Spec
 
 int out(const char *data, int length);
 void outc(char c);
+void outcr(char c, int count);
+void pad_before(Options options, int length, char *prefix, int prefixlen);
+void pad_after(Options options, int length);
 
 int _printf(const char *format, ...);
 
@@ -62,8 +65,6 @@ Printer get_spec(char c);
 			n = va_arg(args, long type);									\
 		else																						\
 			n = va_arg(args, type);												\
-	} while (0);
-
-#define MAX_DIGIT 1000000000000000000
+	} while (0)
 
 #endif
