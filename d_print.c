@@ -26,20 +26,14 @@ void print_d(va_list args, Options options)
 		digits[length] = 0;
 
 	if (negative)
-	{
 		prefix = "-";
-		prefixlen = 1;
-	}
 	else if (options.space)
-	{
 		prefix = " ";
-		prefixlen = 1;
-	}
 	else if (options.plus)
-	{
 		prefix = "+";
+
+	if (prefix)
 		prefixlen = 1;
-	}
 
 	pad_before(options, length, prefix, prefixlen);
 	/* print digits */
