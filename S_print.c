@@ -2,7 +2,7 @@
 /**
  * print_S - Print string.
  * @args: Incoming string.
- * @ops: Options.
+ * @options: Options.
  * Return: Number of bytes
  */
 void print_S(va_list args, Options options)
@@ -14,24 +14,18 @@ void print_S(va_list args, Options options)
 	/* get length */
 	if (s)
 		while (s[length])
-		{
 			if (s[length] < 32 || s[length] >= 127) /* "\xNN" - 4 chars */
 				length += 4;
 			else
 				length += 1;
-		}
 	else
-	{
 		length = 6; /* "(null)" */
-	}
 
 	if (options.precision >= 0 && length > options.precision)
 		length = options.precision;
-
 	pad_before(options, length, NULL, 0);
 	/* print string */
 	if (s)
-	{
 		for (i = 0; i < length; i++)
 			if (s[i] < 32 || s[i] >= 127)
 			{
@@ -43,20 +37,14 @@ void print_S(va_list args, Options options)
 					n >>= 4;
 				}
 				for (j = (j - 1); j >= 0; j--)
-				{
 					if (a[j] <= 9)
 						outc(a[j] + '0');
 					else
 						outc((a[j] - 10) + 'A');
-				}
 			}
 			else
 				outc(s[i]);
-	}
 	else
-	{
 		out("(null)", 6);
-	}
-
 	pad_after(options, length);
 }
