@@ -12,7 +12,7 @@ void print_u(va_list args, Options options)
 
 	GET_SIZED(n, options, args, unsigned int);
 	/* get length and digits */
-	for (length = 0; n != 0 || length == 0; length++)
+	for (length = 0; n != 0 || (length == 0 && options.precision != 0); length++)
 	{
 		digits[length] = n % 10;
 		n = n / 10;

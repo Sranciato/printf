@@ -13,7 +13,7 @@ void print_d(va_list args, Options options)
 	GET_SIZED(n, options, args, int);
 	negative = n < 0;
 	/* get length and digits */
-	for (length = 0; n != 0 || length == 0; length++)
+	for (length = 0; n != 0 || (length == 0 && options.precision != 0); length++)
 	{
 		if (negative)
 			digits[length] = -(n % 10);

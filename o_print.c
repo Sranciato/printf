@@ -21,7 +21,7 @@ void print_o(va_list args, Options options)
 	}
 
 	/* read digits */
-	for (length = 0; n != 0 || length == 0; length++)
+	for (length = 0; n != 0 || (length == 0 && options.precision != -1); length++)
 	{
 		digits[length] = n & 7;
 		n >>= 3;
