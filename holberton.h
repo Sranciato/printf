@@ -62,7 +62,7 @@ Printer get_spec(char c);
 			n = va_arg(args, long type);									\
 		else																						\
 			n = va_arg(args, type);												\
-	} while (0);
+	} while (0)
 
 #define MAX_DIGIT 1000000000000000000
 
