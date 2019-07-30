@@ -1,7 +1,7 @@
 #include "holberton.h"
 
 /**
- * print_o - print binary
+ * print_b - print binary
  *
  * @args: args
  * @options: options
@@ -14,7 +14,7 @@ void print_b(va_list args, Options options)
 	GET_SIZED(n, options, args, unsigned int);
 
 	/* read digits */
-	for (length = 0; n != 0 || (length == 0 && options.precision != -1); length++)
+	for (length = 0; n != 0 || (length == 0 && options.precision != 0); length++)
 	{
 		digits[length] = n & 1;
 		n >>= 1;
