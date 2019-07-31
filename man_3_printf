@@ -1,231 +1,75 @@
-.TH man 3 "07 July 2019" "_PRINTF"
+.TH "_PRINTF" 3 "30 July 2019"
 .SH NAME
 _printf - format and print data
 .SH SYNOPSIS
-.B #include "holberton.h"
-.PP
-.B #include <stdarg.h>
+.B
+#include "holberton.h"
 .PP
 .B int _printf(const char *format, ...);
 .SH DESCRIPTION
 .PP
-The functions in the printf() family produce output according to a format as described below. The functions printf() and vprintf() write output to stdout, the standard output stream.
-.PP
-All of these functions write the output under the control of a format string that specifies how subsequent arguments (or arguments accessed via the variable-length argument facilities of stdarg(3)) are converted for output.
+A copy of the standard library function printf.
+_printf() prints a string containing format sequences. Characters other than % are printed directly, and sequences starting with % will print one of the arguments.
 .SS Return value
 .PP
-Upon successful return, these functions return the number of characters printed (excluding the null byte used to end output to strings).
+Returns the number of characters printed, or -1 if an error occurs.
+.SS Format sequences
 .PP
-The  functions  snprintf()  and vsnprintf() do not write more than size bytes (including the terminating null byte ('\0')).  If the output  was truncated  due  to  this  limit  then the return value is the number of characters (excluding the terminating null byte) which would have  been written  to the final string if enough space had been available.  Thus, a return value of size or more means that  the  output  was  truncated. (See also below under NOTES.)
-.SS Format of the format string
+A format sequence starts with %, and contain flags, a width field, a precision, a size modifier, and ends with a format specifier character.
 .PP
-The  format  string  is a character string, beginning and ending in its initial shift state, if any.  The format string is composed of zero  or more   directives:  ordinary  characters  (not  %),  which  are  copied unchanged to the output stream; and conversion specifications, each  of which results in fetching zero or more subsequent arguments.  Each conversion specification is introduced by the character %, and ends with a conversion  specifier.  In between there may be (in this order) zero or more flags, an optional minimum field width, an optional precision  and an optional length modifier.
+% [ flags ] [ width ] [ .precision ] [ size ] <specifier>
 .PP
-.SS The flag characters
+.SS Flags
 .PP
-The character % is followed by zero or more of the following flags:
+# \- If the number to be printed is not 0, output 0 before numbers printed with %o, 0x with %x, and 0X with %X.
 .PP
-# \- The  value  should  be  converted to an "alternate form".  For o conversions, the first character of the output  string  is  made zero (by prefixing a 0 if it was not zero already).
+0 \- Pad using 0s instead of spaces.
 .PP
-0 \- The value should be zero padded.  For d, i, o, u, x, X, a, A, e, E, f, F, g, and G conversions, the converted value is padded  on the  left  with  zeros rather than blanks.
+\- \- Insert padding before the printed value rather than after.
 .PP
-\- \- The converted value is to be left adjusted on the  field  boundary.
+space \- Print a space before non-negative numbers printed with %d or %i.
 .PP
-\' \' \- (a space) A blank should be left before a  positive  number  (or empty string) produced by a signed conversion.
++ \- Print a + before non-negative numbers with %d or %i. Takes priority over space.
+.SS Width
 .PP
-+ \- A sign (+ or -) should always be placed before a number produced by a signed conversion.  By default a sign is used only for negative numbers.  A + overrides a space if both are used.
-.SS The length modifier
+If the text to be printed is less than the width value, spaces (or 0s if the 0 flag is used) are printed before (or after, with the - flag) the text so it is the correct width.
+.SS Precision
 .PP
-Here, "integer conversion" stands for d, i, o, u, x, or X conversion.
+In %d, %i, %u, %o, %x, and %X, specifies the minimum number of digits to print. In %s, specifies the maximum number of characters from the string to print.
+.SS Size
+Controls the size of the argument to read. Default is int, only affects %i, %d, %u, %o, %x, and %X.
 .PP
-hh            A following integer conversion corresponds to a signed  char  or
-              unsigned  char argument, or a following n conversion corresponds
-              to a pointer to a signed char argument.
+h             short int
 .PP
-h             A following integer conversion corresponds to  a  short  int  or
-              unsigned  short int argument, or a following n conversion corre‐
-              sponds to a pointer to a short int argument.
+l             long int
+.SS Specifier
 .PP
-l             (ell) A following integer conversion corresponds to a  long  int
-              or  unsigned long int argument, or a following n conversion cor‐
-              responds to a pointer to a long int argument, or a  following  c
-              conversion  corresponds  to  a wint_t argument, or a following s
-              conversion corresponds to a pointer to wchar_t argument.
+This character controls what type is read from the argument list, and what format is is printed in.
 .PP
-ll            (ell-ell).  A following integer conversion corresponds to a long
-              long  int  or  unsigned long long int argument, or a following n
-              conversion corresponds to a pointer to a long long int argument.
+d, i          Print a signed integer in decimal
 .PP
-L             A following a, A, e, E, f, F, g, or G conversion corresponds  to
-              a long double argument.  (C99 allows %LF, but SUSv2 does not.)
+o, u, x, X    Print an unsigned integer in octal (o), decimal (u), lowercase
+              hexadecimal (x) or uppercase hexadecimal (X).
 .PP
-q             ("quad".  4.4BSD  and  Linux libc5 only.  Don't use.)  This is a
-              synonym for ll.
+c             A character is printed.
 .PP
-j             A following integer conversion corresponds  to  an  intmax_t  or
-              uintmax_t argument.
+s             Print a nul-terminated string (not including the nul). If a null
+              pointer is passed, print (null).
 .PP
-z             A  following  integer  conversion  corresponds  to  a  size_t or
-              ssize_t argument.  (Linux libc5 has Z with this meaning.   Don't
-              use it.)
+p             Print a pointer in hexadecimal, starting with 0x.
 .PP
-t             A  following integer conversion corresponds to a ptrdiff_t argu‐
-              ment.
-.SS The conversion specifier
+S	         Non printable characters (0 < ASCII value < 32 or >= 127)
+              are printed this way: \\x, followed by the ASCII code value in
+              hexadecimal (upper case - always 2 characters)
 .PP
-A character that specifies the type of conversion to be  applied.   The conversion specifiers and their meanings are:
+b	         The unsigned int argument is converted to binary.
 .PP
-S	      Non printable characters (0 < ASCII value < 32 or >= 127) are pr
-	      inted this way: \x, followed by the ASCII code value in hexadeci
-	      mal (upper case - always 2 characters.
+r	         Prints the reversed version of a string.
 .PP
-b	      The unsigned int argument is converted to binary.
+R	         Prints the rot13 version of characters. Every character is moved
+              13 places in the alphabet. ex. (a = n)
 .PP
-r	      Prints the reversed version of a string, including a null byte
-	      at the end of the new string.
-.PP
-R	      Prints the rot13 version of characters. Every character is moved
-	      13 places in the alphabet. ex. (a = n)
-.PP
-d, i          The  int  argument is converted to signed decimal notation.  The
-              precision, if any, gives the minimum number of digits that  must
-              appear;  if  the  converted  value  requires fewer digits, it is
-              padded on the left with zeros.   The  default  precision  is  1.
-              When  0  is  printed with an explicit precision 0, the output is
-              empty.
-.PP
-o, u, x, X
-              The unsigned int argument is converted to  unsigned  octal  (o),
-              unsigned  decimal  (u),  or unsigned hexadecimal (x and X) nota‐
-              tion.  The letters abcdef are used for x conversions;  the  let‐
-              ters  ABCDEF are used for X conversions.  The precision, if any,
-              gives the minimum number of digits that must appear; if the con‐
-              verted  value  requires  fewer  digits, it is padded on the left
-              with zeros.  The default precision is 1.  When 0 is printed with
-              an explicit precision 0, the output is empty.
-.PP
-e, E          The  double  argument  is  rounded  and  converted  in the style
-              [-]d.ddde±dd where there is one digit before  the  decimal-point
-              character and the number of digits after it is equal to the pre‐
-              cision; if the precision is missing, it is taken as  6;  if  the
-              precision  is  zero,  no  decimal-point character appears.  An E
-              conversion uses the letter E (rather than e)  to  introduce  the
-              exponent.   The exponent always contains at least two digits; if
-              the value is zero, the exponent is 00.
-.PP
-f, F          The double argument is rounded and converted to decimal notation
-              in  the  style  [-]ddd.ddd, where the number of digits after the
-              decimal-point character is equal to the precision specification.
-              If  the precision is missing, it is taken as 6; if the precision
-              is explicitly zero, no decimal-point character  appears.   If  a
-              decimal point appears, at least one digit appears before it.
-.PP
-g, G          The double argument is converted in style f or e (or F or E  for
-              G  conversions).  The precision specifies the number of signifi‐
-              cant digits.  If the precision is missing, 6 digits  are  given;
-              if  the  precision is zero, it is treated as 1.  Style e is used
-              if the exponent from its conversion is less than -4  or  greater
-              than or equal to the precision.  Trailing zeros are removed from
-              the fractional part of the result; a decimal point appears  only
-              if it is followed by at least one digit.
-.PP
-a, A          (C99;  not  in  SUSv2)  For a conversion, the double argument is
-              converted to hexadecimal notation (using the letters abcdef)  in
-              the  style  [-]0xh.hhhhp±;  for  A conversion the prefix 0X, the
-              letters ABCDEF, and the exponent separator P is used.  There  is
-              one  hexadecimal  digit before the decimal point, and the number
-              of digits after it is equal to the precision.  The default  pre‐
-              cision  suffices  for an exact representation of the value if an
-              exact representation in base 2 exists and  otherwise  is  suffi‐
-              ciently  large  to distinguish values of type double.  The digit
-              before the decimal point is unspecified for  nonnormalized  num‐
-              bers,  and nonzero but otherwise unspecified for normalized num‐
-              bers.
-.PP
-c             If no l modifier is present, the int argument is converted to an
-              unsigned  char, and the resulting character is written.  If an l
-              modifier is present, the wint_t  (wide  character)  argument  is
-              converted  to  a  multibyte sequence by a call to the wcrtomb(3)
-              function, with a conversion state starting in the initial state,
-              and the resulting multibyte string is written.
-.PP
-s             If  no  l  modifier  is  present:  The  const char * argument is
-              expected to be a pointer to an array of character type  (pointer
-              to  a string).  Characters from the array are written up to (but
-              not including) a terminating null byte ('\0'); if a precision is
-              specified,  no more than the number specified are written.  If a
-              precision is given, no null byte need be present; if the  preci‐
-              sion is not specified, or is greater than the size of the array,
-              the array must contain a terminating null byte.
-.PP
-C             (Not in C99, but in SUSv2.)  Synonym for lc.  Don't use.
-.PP
-S             (Not in C99, but in SUSv2.)  Synonym for ls.  Don't use.
-.PP
-p             The void * pointer argument is printed in hexadecimal (as if  by %#x or %#lx).
-.PP
-n             The number of characters written so far is stored into the inte‐
-              ger indicated by the int * (or variant)  pointer  argument.   No
-              argument is converted.
-.PP
-m             (Glibc  extension.)   Print output of strerror(errno).  No argu‐
-              ment is required.
-.PP
-%             A '%' is written.  No argument is converted.  The complete  con‐
-              version specification is '%%'.
-.SH NOTES
-.PP
-to append text to buf.  However, the standards explicitly note that the results  are  undefined  if source and destination buffers overlap when calling sprintf(), snprintf(), vsprintf(), and vsnprintf().   Depending on the version of gcc(1) used, and the compiler options employed, calls such as the above will not produce the expected results.
-.SH BUGS
-.PP
-Code such as printf(foo); often indicates a bug, since foo may  contain a  % character.  If foo comes from untrusted user input, it may contain %n, causing the printf() call to write to memory and creating  a  security hole.
-.SH EXAMPLE
-.PP
-       #include <stdio.h>
-       #include <stdlib.h>
-       #include <stdarg.h>
-
-       char *
-       make_message(const char *fmt, ...)
-       {
-           int n;
-           int size = 100;     /* Guess we need no more than 100 bytes */
-           char *p, *np;
-           va_list ap;
-
-           if ((p = malloc(size)) == NULL)
-               return NULL;
-
-           while (1) {
-
-               /* Try to print in the allocated space */
-
-               va_start(ap, fmt);
-               n = vsnprintf(p, size, fmt, ap);
-               va_end(ap);
-
-               /* Check error code */
-
-               if (n < 0)
-                   return NULL;
-
-               /* If that worked, return the string */
-
-               if (n < size)
-                   return p;
-
-               /* Else try again with more space */
-
-               size = n + 1;       /* Precisely what is needed */
-
-               if ((np = realloc (p, size)) == NULL) {
-                   free(p);
-                   return NULL;
-               } else {
-                   p = np;
-               }
-           }
-       }
+%             Print a %.
 .SH SEE ALSO
 .PP
-printf(1), asprintf(3), dprintf(3), scanf(3), setlocale(3), wcrtomb(3), wprintf(3), locale(5)
+printf(3)
