@@ -141,9 +141,12 @@ void process_item(const char **format, va_list args)
 
 	/* read options after % */
 	options = scan_options(format, &c, args);
-	/* if string ended, oops, go back */
+	/* if string ended, oops */
 	if (c == '\0')
-		(*format)--;
+	{
+		*format = NULL; /* signal error by setting pointer to NULL */
+		return;
+	}
 
 	/* call print function if it exists */
 	f = get_spec(c);

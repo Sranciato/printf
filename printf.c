@@ -11,6 +11,7 @@ int _printf(const char *format, ...)
 {
 	const char *ptr;
 	va_list args;
+	int totalprinted;
 
 	if (!format)
 		return (-1);
@@ -26,6 +27,13 @@ int _printf(const char *format, ...)
 
 	va_end(args);
 
-	/* get the number of chars printed */
-	return (out(NULL, -2));
+	/* calling out() this way will finish outputting everything in the buffer */
+	/* and return the total number of characters printed */
+	totalprinted = out(NULL, -2);
+
+	/* if an error occurred, return -1 */
+	if (ptr == NULL)
+		return (-1);
+
+	return (totalprinted);
 }
