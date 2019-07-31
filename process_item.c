@@ -55,9 +55,9 @@ int scan_int(const char **format, char *cc, va_list args)
 		return (va_arg(args, int));
 	}
 
-	/* if there is no number return -1 */
+	/* if there is no number return something hehehe */
 	if (c < '0' || c > '9')
-		return (-1);
+		return (1<<31);
 
 	/* read all digits */
 	while (c >= '0' && c <= '9')
@@ -99,15 +99,26 @@ Options scan_options(const char **format, char *cc, va_list args)
 		else
 			break;
 	}
+	if (options.plus)
+		options.space = 0;
 	/* read length */
 	options.length = scan_int(format, &c, args);
+	if (options.length == 1 << 31)
+		options.length = -1;
+	else if (options.length < 0)
+	{
+		options.length = -options.length;
+		options.minus = 1;
+	}
 	/* if . read precision */
 	if (c == '.')
 	{
 		c = scan(format);
 		options.precision = scan_int(format, &c, args);
-		if (options.precision == -1) /* if there is no number */
+		if (options.precision == 1 << 31) /* if there is no number */
 			options.precision = 0; /* treat it like .0 */
+		else if (options.precision < 0)
+			options.precision = -1;//-options.precision;
 	}
 	/* read h or l flag */
 	options.size = scan_size(format, &c);
@@ -128,7 +139,7 @@ void process_item(const char **format, va_list args)
 	Printer f;
 	char c;
 	Options options;
-	const char *start = *format;
+	/* const char *start = *format; */
 
 	/* eat 1 char */
 	c = scan(format);
@@ -153,5 +164,6 @@ void process_item(const char **format, va_list args)
 	if (f)
 		f(args, options);
 	else /* otherwise output the invalid specifier directly */
-		out(start, *format - start);
+		output_invalid(options, c);
+	/* out(start, *format - start); */
 }

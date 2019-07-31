@@ -56,6 +56,8 @@ int _printf(const char *format, ...);
 
 void process_item(const char **format, va_list args);
 
+void output_invalid(Options options, char spec);
+
 Printer get_spec(char c);
 
 #define GET_SIZED(n, options, args, type) do {			\
