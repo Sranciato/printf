@@ -75,6 +75,18 @@ t             A  following integer conversion corresponds to a ptrdiff_t argu‐
 .PP
 A character that specifies the type of conversion to be  applied.   The conversion specifiers and their meanings are:
 .PP
+S	      Non printable characters (0 < ASCII value < 32 or >= 127) are pr
+	      inted this way: \x, followed by the ASCII code value in hexadeci
+	      mal (upper case - always 2 characters.
+.PP
+b	      The unsigned int argument is converted to binary.
+.PP
+r	      Prints the reversed version of a string, including a null byte
+	      at the end of the new string.
+.PP
+R	      Prints the rot13 version of characters. Every character is moved
+	      13 places in the alphabet. ex. (a = n)
+.PP
 d, i          The  int  argument is converted to signed decimal notation.  The
               precision, if any, gives the minimum number of digits that  must
               appear;  if  the  converted  value  requires fewer digits, it is
